@@ -1961,10 +1961,19 @@
         if (this.options.sidePagination === 'server') {
             this.options.totalRows = data.total;
             fixedScroll = data.fixedScroll;
-            data = data.rows;
+            if(typeof data.data == "undefined"){
+                data = data.rows;
+            }else{
+                data = data.data;
+            }
+
         } else if (!$.isArray(data)) { // support fixedScroll
             fixedScroll = data.fixedScroll;
-            data = data.data;
+            if(typeof data.data == 'undefined'){
+                data = data;
+            }else {
+                data = data.data;
+            }
         }
 
         this.initData(data);

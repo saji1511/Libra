@@ -2,6 +2,10 @@
 
 return [
 
+    'dbs' => [
+        'libradb' => 'libra_new',
+        'xcartdb' => '44x'
+    ],
 	/*
 	|--------------------------------------------------------------------------
 	| Application Debug Mode

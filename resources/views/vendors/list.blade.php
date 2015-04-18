@@ -55,14 +55,14 @@
                             align: 'center',
                             sortable: true,
                             formatter: function(value,row){
-                                return '<a href="/vendors/products/'+row.id+'">Products</a>';
+                                return '<a href="/products/'+row.id+'">Products</a>';
                             }
                         }, {
                             title: 'MFGs',
                             align: 'center',
                             sortable: true,
                             formatter: function(value,row){
-                                return '<a href="/vendors/mfgs/'+row.id+'">MFGs</a>';
+                                return '<a href="/vendormfgs/'+row.id+'">MFGs</a>';
                             }
                         }, {
     	                    field: 'active',

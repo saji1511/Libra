@@ -2,19 +2,58 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Vendors;
+use App\Manufacturers;
+use App\VendorsMfgMap;
 use Illuminate\Http\Request;
 
 class VendorsMfgMapController extends Controller {
 
+    public function showmfgmap()
+    {
+        $vendorsObj = new Vendors();
+        $vendors = $vendorsObj->all(['id','name'])->toArray();
+
+        $mfgObj = new Manufacturers();
+        $mfgs = $mfgObj->all(['manufacturerid','manufacturer'])->toArray();
+
+        return view('vendors.editmfg',compact('vendors','mfgs'));
+    }
+
+    public function mfgs($id){
+        $vendorMap = new VendorsMfgMap();
+        return $vendorMap->getMfgs($id);
+    }
+
+    public function products($id){
+        $params=array();
+        if(isset($_GET['sort'])){
+            $params['sort']=\Input::get('sort');
+        }
+
+        if(isset($_GET['order'])){
+            $params['order']=\Input::get('order');
+        }
+        if(isset($_GET['search'])){
+            $params['search']=\Input::get('search');
+        }
+        if(isset($_GET['offset'])){
+            $params['offset']=\Input::get('offset');
+        }
+        if(isset($_GET['limit'])){
+            $params['limit']=\Input::get('limit');
+        }
+        $vendorMap = new VendorsMfgMap();
+        return $vendorMap->getProducts($id,$params);
+    }
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function showMfgs($id)
 	{
-		//
+        return view('vendors.vendormfglist',compact('id'));
 	}
 
 	/**
@@ -22,63 +61,8 @@ class VendorsMfgMapController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function showProducts($id)
 	{
-		//
+        return view('vendors.vmproductslist',compact('id'));
 	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
 }
